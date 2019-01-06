@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.Base.Exception.BizException;
 import com.example.common.consts.WechatErrorCode;
 import com.example.common.consts.WechatUrl;
+import com.example.common.enums.EnumWechatCode;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -39,11 +40,11 @@ public class WechatHelper {
 
     private static void analysisResult(String result) throws BizException{
         JSONObject jsonResult = JSONObject.parseObject(result);
-        Integer code = jsonResult.getInteger("errcode");
-        if(WechatErrorCode.SUCCESS.equals(code)){
+        String code = jsonResult.getString("errcode");
+        if(EnumWechatCode.REQUEST_SUCCESSFUL.equals(EnumWechatCode.getEnum(code))){
             return;
         }
-        throw new BizException(jsonResult.getString("errmsg"));
+        throw new BizException(EnumWechatCode.getEnum(code).getName());
     }
 
 }

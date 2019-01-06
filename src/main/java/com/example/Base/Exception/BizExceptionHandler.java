@@ -11,7 +11,7 @@ import java.util.Map;
 
 @ControllerAdvice
 @ResponseBody
-public class MyExceptionHandler {
+public class BizExceptionHandler {
 
     @ExceptionHandler(BizException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
