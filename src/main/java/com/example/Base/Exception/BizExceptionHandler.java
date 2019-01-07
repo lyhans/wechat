@@ -1,5 +1,6 @@
-package com.example.Base.Exception;
+package com.example.base.exception;
 
+import com.example.base.exception.BizException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

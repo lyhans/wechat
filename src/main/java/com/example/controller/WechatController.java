@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.Base.Exception.BizException;
+import com.example.base.exception.BizException;
 import com.example.service.IWechatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

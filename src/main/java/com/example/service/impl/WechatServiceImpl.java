@@ -1,6 +1,6 @@
 package com.example.service.impl;
 
-import com.example.Base.Exception.BizException;
+import com.example.base.exception.BizException;
 import com.example.helper.WechatHelper;
 import com.example.mapper.PublicBaseInfoMapper;
 import com.example.model.PublicBaseInfo;

@@ -1,6 +1,7 @@
 package com.example.service;
 
-import com.example.Base.Exception.BizException;
+
+import com.example.base.exception.BizException;
 
 public interface IWechatService {
 

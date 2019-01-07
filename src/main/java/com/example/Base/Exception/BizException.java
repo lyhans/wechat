@@ -1,4 +1,4 @@
-package com.example.Base.Exception;
+package com.example.base.exception;
 
 public class BizException extends Exception{
 
