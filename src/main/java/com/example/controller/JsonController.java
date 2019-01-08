@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/tjson")
 public class JsonController {
 
     private static final Logger log = LoggerFactory.getLogger(JsonController.class);
