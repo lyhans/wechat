@@ -35,6 +35,11 @@ public class WechatHelper {
         return result;
     }
 
+    /**
+     * 解析错误码
+     * @param result
+     * @throws BizException
+     */
     private static void analysisResult(String result) throws BizException{
         JSONObject jsonResult = JSONObject.parseObject(result);
         String code = jsonResult.getString("errcode");

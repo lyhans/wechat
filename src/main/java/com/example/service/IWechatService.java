@@ -11,7 +11,7 @@ public interface IWechatService {
 	 * @param secret
 	 * @return
 	 */
-	String getAccessToken(String appid,String secret)  throws BizException;
+//	String getAccessToken(String appid,String secret)  throws BizException;
 
 	/**
 	 * 新增微信公众号
@@ -19,5 +19,5 @@ public interface IWechatService {
 	 * @param appid
 	 * @param secret
 	 */
-	void addPublic(String name,String appid,String secret)  throws BizException ;
+//	void addPublic(String name,String appid,String secret)  throws BizException ;
 }

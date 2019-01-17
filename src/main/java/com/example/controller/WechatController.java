@@ -29,6 +29,6 @@ public class WechatController {
 	@RequestMapping(value = "/add.json")
 	public void getAccessToken(@RequestParam String name,@RequestParam String appid,@RequestParam String secret)  throws
 			BizException {
-		wechatService.addPublic(name,appid,secret);
+//		wechatService.addPublic(name,appid,secret);
 	}
 }
