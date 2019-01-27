@@ -2,7 +2,7 @@ package com.example.model;
 
 import java.util.Date;
 
-public class PublicBaseInfo {
+public class PublicBaseInfoEntity {
     private Long id;
 
     private String name;
@@ -13,7 +13,9 @@ public class PublicBaseInfo {
 
     private String accessToken;
 
-    private Long creatorId = 0L;
+    private Date expireTime;
+
+    private Long creatorId;
 
     private Date createTime;
 
@@ -57,6 +59,14 @@ public class PublicBaseInfo {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken == null ? null : accessToken.trim();
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 
     public Long getCreatorId() {

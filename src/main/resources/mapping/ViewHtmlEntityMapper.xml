@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.ViewHtmlEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.example.model.ViewHtmlEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="wechat_user_id" property="wechatUserId" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="show_limit" property="showLimit" jdbcType="INTEGER" />
+    <result column="create_type" property="createType" jdbcType="BIT" />
+    <result column="resource_usage" property="resourceUsage" jdbcType="INTEGER" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, wechat_user_id, link_url, url, uuid, show_limit, create_type, resource_usage,
+    view_count, creat_time, update_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from view_html
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from view_html
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.model.ViewHtmlEntity" >
+    insert into view_html (id, user_id, wechat_user_id, 
+      link_url, url, uuid, 
+      show_limit, create_type, resource_usage,
+      view_count, creat_time, update_time, 
+      is_del)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{wechatUserId,jdbcType=VARCHAR}, 
+      #{linkUrl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, 
+      #{showLimit,jdbcType=INTEGER}, #{createType,jdbcType=BIT}, #{resourceUsage,jdbcType=INTEGER},
+      #{viewCount,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.model.ViewHtmlEntity" >
+    insert into view_html
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="wechatUserId != null" >
+        wechat_user_id,
+      </if>
+      <if test="linkUrl != null" >
+        link_url,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="showLimit != null" >
+        show_limit,
+      </if>
+      <if test="createType != null" >
+        create_type,
+      </if>
+      <if test="resourceUsage != null" >
+        resource_usage,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="wechatUserId != null" >
+        #{wechatUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="showLimit != null" >
+        #{show_limit,jdbcType=INTEGER},
+      </if>
+      <if test="createType != null" >
+        #{createType,jdbcType=BIT},
+      </if>
+      <if test="resourceUsage != null" >
+        #{resourceUsage,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.ViewHtmlEntity" >
+    update view_html
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="wechatUserId != null" >
+        wechat_user_id = #{wechatUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null" >
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="show_limit != null" >
+        show_limit = #{showLimit,jdbcType=INTEGER},
+      </if>
+      <if test="createType != null" >
+        create_type = #{createType,jdbcType=BIT},
+      </if>
+      <if test="resourceUsage != null" >
+        resource_usage = #{resourceUsage,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.model.ViewHtmlEntity" >
+    update view_html
+    set user_id = #{userId,jdbcType=BIGINT},
+      wechat_user_id = #{wechatUserId,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      show_limit = #{showLimit,jdbcType=INTEGER},
+      create_type = #{createType,jdbcType=BIT},
+      resource_usage = #{resourceUsage,jdbcType=INTEGER},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="selectByUuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from view_html
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

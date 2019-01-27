@@ -2,7 +2,7 @@ package com.example.model;
 
 import java.util.Date;
 
-public class User {
+public class UserEntity {
     private Long id;
 
     private String loginName;

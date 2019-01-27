@@ -2,22 +2,26 @@ package com.example.service;
 
 
 import com.example.base.exception.BizException;
+import com.example.form.WechatUserInfoForm;
+
+import java.util.List;
 
 public interface IWechatService {
 
 	/**
-	 * 获取access_token
-	 * @param appid
-	 * @param secret
-	 * @return
+	 * 根据appid更新accessToken
+	 * @param publicId
+	 * @throws BizException
 	 */
-//	String getAccessToken(String appid,String secret)  throws BizException;
+	void updateAccessToken(Long publicId)  throws BizException ;
 
 	/**
-	 * 新增微信公众号
-	 * @param name
-	 * @param appid
-	 * @param secret
+	 * 获取微信服务器IP地址
+	 * @param publicId
+	 * @return
+	 * @throws BizException
 	 */
-//	void addPublic(String name,String appid,String secret)  throws BizException ;
+	List<String> getCallbackIp(Long publicId)  throws BizException ;
+
+	WechatUserInfoForm getUserInfo(Long publicId,String openid)throws BizException ;
 }

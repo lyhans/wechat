@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.form.UserForm;
-import com.example.model.User;
 
 /**
  * <p>

@@ -16,6 +16,6 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/file.html");
+        registry.addViewController("/").setViewName("forward:/test.html");
     }
 }
