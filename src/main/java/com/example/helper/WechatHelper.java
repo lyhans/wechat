@@ -7,6 +7,7 @@ import com.example.base.exception.BizException;
 import com.example.common.consts.WechatUrl;
 import com.example.common.enums.EnumWechatCode;
 import com.example.controller.WechatController;
+import com.example.form.MenuForm;
 import com.example.form.WechatOauth2TokenForm;
 import com.example.form.WechatUserInfoForm;
 import org.apache.catalina.startup.WebAnnotationSet;
@@ -62,7 +63,7 @@ public class WechatHelper {
     }
 
     /**
-     *
+     * 获取用户信息
      * @param accessToken
      * @param openid
      * @return
@@ -79,6 +80,14 @@ public class WechatHelper {
         return JSON.parseObject(result,WechatUserInfoForm.class);
     }
 
+    /**
+     * 网页授权
+     * @param appid
+     * @param secret
+     * @param code
+     * @return
+     * @throws BizException
+     */
     public static WechatOauth2TokenForm getOauth2Token(String appid,String secret,String code)throws BizException{
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("appid",appid);
@@ -91,6 +100,13 @@ public class WechatHelper {
         return JSON.parseObject(result,WechatOauth2TokenForm.class);
     }
 
+    /**
+     * 获取网页用户信息
+     * @param web_access_token
+     * @param openid
+     * @return
+     * @throws BizException
+     */
     public static WechatUserInfoForm getSnsUserInfo(String web_access_token,String openid)throws BizException{
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("access_token",web_access_token);
@@ -100,6 +116,16 @@ public class WechatHelper {
         log.info("getSnsUserInfo-----result:"+result);
         analysisResult(result);
         return JSON.parseObject(result,WechatUserInfoForm.class);
+    }
+
+    public static void menuCreate(String accessToken, MenuForm menuForm) throws BizException {
+        Map<String,String> map = new HashMap<>();
+        map.put("access_token",accessToken);
+        String url = WechatUrl.MENU_CREATE_URL+HttpUtil.toParams(map);
+        log.info("menuCreate-----url:"+url);
+        String result = HttpUtil.post(url,JSON.toJSONString(menuForm));
+        log.info("menuCreate-----result:"+result);
+        analysisResult(result);
     }
 
     /**
@@ -113,7 +139,11 @@ public class WechatHelper {
         if(StringUtils.isEmpty(code)){
             return;
         }
-        throw new BizException(code,EnumWechatCode.getEnum(code).getName());
+        EnumWechatCode enumWechatCode = EnumWechatCode.getEnum(code);
+        if(EnumWechatCode.REQUEST_SUCCESSFUL == enumWechatCode){
+            return;
+        }
+        throw new BizException(code,enumWechatCode.getName());
     }
 
 }

@@ -66,11 +66,22 @@ public class WechatController {
 		return "fail";
 	}
 
+	/**
+	 *
+	 * @param publicId
+	 * @return
+	 * @throws BizException
+	 */
 	@RequestMapping(value = "/getcallbackip.json")
 	public List<String> getCallbackIp(@RequestParam Long publicId) throws BizException{
 		return wechatService.getCallbackIp(publicId);
 	}
 
+	/**
+	 *
+	 * @param code
+	 * @throws BizException
+	 */
 	@RequestMapping("/tologin/userinfo")
 	public void check(String code) throws BizException{
 		WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfo(2L,code);

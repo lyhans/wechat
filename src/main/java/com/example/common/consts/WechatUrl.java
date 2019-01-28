@@ -28,7 +28,9 @@ public class WechatUrl {
 
 	/** 上传图文消息素材接口地址 */
 	public final static String SEND_ALL_URL="https://api.weixin.qq.com/cgi-bin/message/mass/sendall";
-//	public final static String _URL="";
+
+	/** 创建自定义菜单 */
+	public final static String MENU_CREATE_URL="https://api.weixin.qq.com/cgi-bin/menu/create?";
 //	public final static String _URL="";
 //	public final static String _URL="";
 }

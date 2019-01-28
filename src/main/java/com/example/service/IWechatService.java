@@ -2,6 +2,7 @@ package com.example.service;
 
 
 import com.example.base.exception.BizException;
+import com.example.form.MenuForm;
 import com.example.form.WechatUserInfoForm;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface IWechatService {
 	List<String> getCallbackIp(Long publicId)  throws BizException ;
 
 	WechatUserInfoForm getUserInfo(Long publicId,String openid)throws BizException ;
+
+	void menuCreate(Long publicId, MenuForm menuForm)throws BizException ;
 }
