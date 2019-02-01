@@ -3,17 +3,14 @@ package com.example.helper;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.base.exception.BizException;
+import com.example.Base.Exception.BizException;
 import com.example.common.consts.WechatUrl;
 import com.example.common.enums.EnumWechatCode;
-import com.example.controller.WechatController;
 import com.example.form.MenuForm;
 import com.example.form.WechatOauth2TokenForm;
 import com.example.form.WechatUserInfoForm;
-import org.apache.catalina.startup.WebAnnotationSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;

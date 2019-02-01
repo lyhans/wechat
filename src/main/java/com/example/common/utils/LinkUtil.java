@@ -1,10 +1,8 @@
 package com.example.common.utils;
 
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
-import com.example.base.exception.BizException;
-import com.example.common.consts.ViewUrl;
+import com.example.Base.Exception.BizException;
 
 import java.util.HashMap;
 import java.util.Map;

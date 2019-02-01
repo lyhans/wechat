@@ -1,7 +1,6 @@
 package com.example.aop;
 
-import cn.hutool.core.date.DateUtil;
-import com.example.base.exception.BizException;
+import com.example.Base.Exception.BizException;
 import com.example.helper.WechatHelper;
 import com.example.mapper.PublicBaseInfoEntityMapper;
 import com.example.model.PublicBaseInfoEntity;
@@ -15,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**

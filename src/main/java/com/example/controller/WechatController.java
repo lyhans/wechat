@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.base.exception.BizException;
+import com.example.Base.Exception.BizException;
 import com.example.common.utils.EncryptionUtil;
 import com.example.form.WechatUserInfoForm;
 import com.example.service.IWechatService;
@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/wechat")

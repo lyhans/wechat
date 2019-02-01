@@ -2,7 +2,6 @@ package com.example.demo;
 
 import com.example.base.exception.BizException;
 import com.example.common.enums.EnumButtonType;
-import com.example.common.utils.HttpRequestUtil;
 import com.example.form.ButtonForm;
 import com.example.form.MenuForm;
 import com.example.service.IWechatService;

@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.base.exception.BizException;
+import com.example.Base.Exception.BizException;
 import com.example.form.MenuForm;
 import com.example.form.WechatUserInfoForm;
 
