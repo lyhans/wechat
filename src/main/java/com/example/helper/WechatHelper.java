@@ -3,7 +3,7 @@ package com.example.helper;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.Base.Exception.BizException;
+import com.example.base.exception.BizException;
 import com.example.common.consts.WechatUrl;
 import com.example.common.enums.EnumWechatCode;
 import com.example.form.MenuForm;

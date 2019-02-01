@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.Base.Exception.BizException;
+import com.example.base.exception.BizException;
 import com.example.form.MenuForm;
 import com.example.form.WechatUserInfoForm;
 
@@ -14,7 +14,7 @@ public interface IWechatService {
 	 * @param publicId
 	 * @throws BizException
 	 */
-	void updateAccessToken(Long publicId)  throws BizException ;
+	void updateAccessToken(Long publicId)  throws BizException;
 
 	/**
 	 * 获取微信服务器IP地址

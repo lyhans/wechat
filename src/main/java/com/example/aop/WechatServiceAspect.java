@@ -1,6 +1,6 @@
 package com.example.aop;
 
-import com.example.Base.Exception.BizException;
+import com.example.base.exception.BizException;
 import com.example.helper.WechatHelper;
 import com.example.mapper.PublicBaseInfoEntityMapper;
 import com.example.model.PublicBaseInfoEntity;

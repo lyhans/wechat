@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.Base.Exception.BizException;
+import com.example.base.exception.BizException;
 import com.example.common.utils.EncryptionUtil;
 import com.example.form.WechatUserInfoForm;
 import com.example.service.IWechatService;
@@ -70,7 +70,7 @@ public class WechatController {
 	 * @throws BizException
 	 */
 	@RequestMapping(value = "/getcallbackip.json")
-	public List<String> getCallbackIp(@RequestParam Long publicId) throws BizException{
+	public List<String> getCallbackIp(@RequestParam Long publicId) throws BizException {
 		return wechatService.getCallbackIp(publicId);
 	}
 
