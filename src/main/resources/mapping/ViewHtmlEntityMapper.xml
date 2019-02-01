@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.mapper.ViewHtmlEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.example.model.ViewHtmlEntity" >
+<mapper namespace="com.gladfish.work.browse.mapper.ViewHtmlEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.gladfish.work.browse.model.ViewHtmlEntity" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="wechat_user_id" property="wechatUserId" jdbcType="VARCHAR" />
@@ -30,7 +30,7 @@
     delete from view_html
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.model.ViewHtmlEntity" >
+  <insert id="insert" parameterType="com.gladfish.work.browse.model.ViewHtmlEntity" >
     insert into view_html (id, user_id, wechat_user_id, 
       link_url, url, uuid, 
       show_limit, create_type, resource_usage,
@@ -42,7 +42,7 @@
       #{viewCount,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{isDel,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.model.ViewHtmlEntity" >
+  <insert id="insertSelective" parameterType="com.gladfish.work.browse.model.ViewHtmlEntity" >
     insert into view_html
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -127,7 +127,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.ViewHtmlEntity" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.gladfish.work.browse.model.ViewHtmlEntity" >
     update view_html
     <set >
       <if test="userId != null" >
@@ -169,7 +169,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.model.ViewHtmlEntity" >
+  <update id="updateByPrimaryKey" parameterType="com.gladfish.work.browse.model.ViewHtmlEntity" >
     update view_html
     set user_id = #{userId,jdbcType=BIGINT},
       wechat_user_id = #{wechatUserId,jdbcType=VARCHAR},
