@@ -1,5 +1,7 @@
 package com.gladfish.work.wechat.form;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * <p>
  *
@@ -25,7 +27,8 @@ public class WechatUserInfoForm {
     private String privilege;
     /** 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段 */
     private String unionid;
-
+    /** 用户是否订阅该公众号标识(0为关注，1关注) */
+    private Integer subscribe;
     public String getOpenid() {
         return openid;
     }
@@ -96,5 +99,18 @@ public class WechatUserInfoForm {
 
     public void setUnionid(String unionid) {
         this.unionid = unionid;
+    }
+
+    public Integer getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(Integer subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
     }
 }

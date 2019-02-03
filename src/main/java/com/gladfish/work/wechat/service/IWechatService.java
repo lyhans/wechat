@@ -24,7 +24,10 @@ public interface IWechatService {
 	 */
 	List<String> getCallbackIp(Long publicId)  throws BizException ;
 
-	WechatUserInfoForm getUserInfo(Long publicId,String openid)throws BizException ;
+	WechatUserInfoForm getUserInfo(Long publicId,String code)throws BizException ;
+
+	WechatUserInfoForm getSnsUserInfo(Long publicId,String openid)throws BizException ;
 
 	void menuCreate(Long publicId, MenuForm menuForm)throws BizException ;
+
 }

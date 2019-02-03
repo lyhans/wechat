@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gladfish.work.browse.mapper.ViewHtmlRecordEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.gladfish.work.browse.model.ViewHtmlRecordEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="view_html_id" property="viewHtmlId" jdbcType="BIGINT" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="user_info" property="userInfo" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, view_html_id, openid, nickname, headimgurl, user_info, creat_time, update_time, 
+    is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from view_html_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from view_html_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.gladfish.work.browse.model.ViewHtmlRecordEntity" >
+    insert into view_html_record (id, view_html_id, openid, 
+      nickname, headimgurl, user_info, 
+      creat_time, update_time, is_del
+      )
+    values (#{id,jdbcType=BIGINT}, #{viewHtmlId,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{userInfo,jdbcType=VARCHAR}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gladfish.work.browse.model.ViewHtmlRecordEntity" >
+    insert into view_html_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="viewHtmlId != null" >
+        view_html_id,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="userInfo != null" >
+        user_info,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="viewHtmlId != null" >
+        #{viewHtmlId,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfo != null" >
+        #{userInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gladfish.work.browse.model.ViewHtmlRecordEntity" >
+    update view_html_record
+    <set >
+      <if test="viewHtmlId != null" >
+        view_html_id = #{viewHtmlId,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfo != null" >
+        user_info = #{userInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gladfish.work.browse.model.ViewHtmlRecordEntity" >
+    update view_html_record
+    set view_html_id = #{viewHtmlId,jdbcType=BIGINT},
+      openid = #{openid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      user_info = #{userInfo,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="countByViewHtmlId" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select count(1)
+    from view_html_record
+    where view_html_id = #{viewHtmlId,jdbcType=BIGINT} and is_del = 0
+  </select>
+
+  <select id="listByViewHtmlId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from view_html_record
+    where view_html_id = #{viewHtmlId,jdbcType=BIGINT} and is_del = 0
+    order by id DESC
+  </select>
+
+</mapper>

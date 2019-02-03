@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/style.css?3"/>
+</head>
+<body>
+
+      
+            <div class="iframeWrap">
+              <iframe  frameborder="0" vspace="0" scrolling="yes" class="iframe" th:src="${linkUrl}"></iframe>
+            </div>
+
+     
+        <div id="tip"  class="tip ">
+           
+                 <span  id="tipNum"  class="weui-badge" style="position: absolute;"></span>
+            
+        </div>
+    <div class="container">
+        
+        <div class="page home badge js_show">
+            <div id="topTool" class="page__bd topTool"> 
+
+
+                <div class="page__hd">
+                    <div class="weui-flex">
+                        <div class="weui-flex__item">
+                            <h1 id="page__title" class="page__title"></h1> 
+                        </div> 
+                         
+                           
+                                <i close class="weui-icon-cancel"></i>
+                            
+                       
+                       
+                    </div>
+                    
+                    
+                </div>
+
+                <script type="text/javascript" th:inline="javascript">
+                    //如果是自己进来才给这赋值，非自己进来是null
+                    var friendData = {
+                        friends:[[${viewRecordForms}]],
+
+//                        friends : [{
+//                            headimg : 'images/WX20190119-212937.png'
+//                            ,nickname : '啊啊啊'
+//                        }
+
+                        /*,{
+                            portrait : 'images/face.png'
+                            ,nickname : 'enenenenenenen'
+                        },{
+                            portrait : 'images/WX20190119-212937.png'
+                            ,nickname : '啊啊啊'
+                        },{
+                            portrait : 'images/WX20190119-212955.png'
+                            ,nickname : '哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦'
+                        },{
+                            portrait : 'images/face.png'
+                            ,nickname : 'enenenenenenen'
+                        },{
+                            portrait : 'images/WX20190119-212937.png'
+                            ,nickname : '啊啊啊'
+                        },{
+                            portrait : 'images/WX20190119-212955.png'
+                            ,nickname : '哦哦哦'
+                        },{
+                            portrait : 'images/face.png'
+                            ,nickname : 'enenenenenenenenenenenenenenenenenenenenen'
+                        }*/
+
+//                        ],
+                        vip : [[${isVip}]],
+                        count : [[${count}]]
+                    };
+
+                </script>
+
+                <div id="friends" class="weui-grids">
+                  
+                 
+                </div>
+                <!--
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                            <img src="images/face.png" style="width: 50px;display: block">
+                            <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>点击看看都有谁</p>
+                            <p style="font-size: 13px;color: #888888;">看过该文章的好友</p>
+                        </div>
+                    </div> 
+                -->
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="../../js/zepto.min.js"></script>
+    <script>
+        
+        $(function() {
+            //friendData = null;
+            if(!friendData){
+                return;
+            }
+
+            var $topTool = $("#topTool");
+            var $close = $topTool.find("[close]");
+            var $tip = $("#tip"); 
+            var $friends = $("#friends"); 
+            var htmls = [];
+                $tip.addClass("show");
+
+            var friends = friendData['friends'];
+
+
+                for(var i=0,len=friends.length;i<len;i++){
+                    htmls.push('<a href="javascript:;" class="weui-grid">'+
+                        '<div class="weui-grid__icon">'+
+                            '<img src="'+friends[i]['headimg']+'" alt="">'+
+                        '</div>'+
+                        '<p class="weui-grid__label">'+friends[i]['nickname']+'</p>'+
+                    '</a>')
+                }
+
+                if(friendData['vip'] === false){
+                    htmls.push('<a id="moreBtn" href="javascript:;" class="weui-grid">'+
+                        '<div class="weui-grid__icon">'+
+                            '<img src="images/dianji.png" alt="">'+
+                        '</div>'+
+                        '<p class="weui-grid__label">点击查看更多</p>'+
+                    '</a>')
+                }
+
+                $friends.html(htmls.join(''));
+
+                $topTool.find("#page__title").text('已有'+friendData['count']+'个好友来过');
+
+                $("#tipNum").text(friendData['count'])
+
+                $tip.on('click',function(){
+                    $topTool.addClass('show');
+                })
+
+                $close.on("click",function(){
+                    $topTool.removeClass('show');
+                })
+
+                $("#moreBtn").on("click",function(){
+                    window.location.href = '';
+                })
+        })
+    </script>
+    <script typet="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+</body>
+</html>

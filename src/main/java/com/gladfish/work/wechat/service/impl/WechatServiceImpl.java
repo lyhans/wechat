@@ -38,11 +38,12 @@ public class WechatServiceImpl implements IWechatService {
 		return ipList;
 	}
 
+	@WechatServiceAopAnnotation
 	@Override
 	public WechatUserInfoForm getUserInfo(Long publicId, String code) throws BizException {
 		PublicBaseInfoEntity publicBaseInfoEntity = publicBaseInfoMapper.selectByPrimaryKey(publicId);
 		WechatOauth2TokenForm wechatOauth2TokenForm = WechatHelper.getOauth2Token(publicBaseInfoEntity.getAppid(),publicBaseInfoEntity.getSecret(),code);
-		return WechatHelper.getSnsUserInfo(wechatOauth2TokenForm.getAccessToken(),wechatOauth2TokenForm.getOpenId());
+		return WechatHelper.getUserInfo(publicBaseInfoEntity.getAccessToken(),wechatOauth2TokenForm.getOpenId());
 	}
 
 	@WechatServiceAopAnnotation
@@ -51,5 +52,13 @@ public class WechatServiceImpl implements IWechatService {
 		PublicBaseInfoEntity publicBaseInfoEntity = publicBaseInfoMapper.selectByPrimaryKey(publicId);
 		String accessToken = publicBaseInfoEntity.getAccessToken();
 		WechatHelper.menuCreate(accessToken,menuForm);
+	}
+
+	@WechatServiceAopAnnotation
+	@Override
+	public WechatUserInfoForm getSnsUserInfo(Long publicId, String openid) throws BizException {
+		PublicBaseInfoEntity publicBaseInfoEntity = publicBaseInfoMapper.selectByPrimaryKey(publicId);
+		WechatOauth2TokenForm wechatOauth2TokenForm = WechatHelper.getOauth2Token(publicBaseInfoEntity.getAppid(),publicBaseInfoEntity.getSecret(),openid);
+		return WechatHelper.getSnsUserInfo(wechatOauth2TokenForm.getAccessToken(),wechatOauth2TokenForm.getOpenId());
 	}
 }

@@ -141,6 +141,21 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-common -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-common</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
