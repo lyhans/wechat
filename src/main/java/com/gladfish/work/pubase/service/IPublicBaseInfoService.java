@@ -16,4 +16,10 @@ public interface IPublicBaseInfoService {
      */
     PublicBaseInfoEntity getGladFishPublicBaseInfoEntity();
 
+    /**
+     *
+     * @param publicBaseInfoEntity
+     */
+    void update(PublicBaseInfoEntity publicBaseInfoEntity);
+
 }

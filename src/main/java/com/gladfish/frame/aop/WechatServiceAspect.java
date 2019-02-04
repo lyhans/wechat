@@ -4,6 +4,7 @@ import com.gladfish.support.helper.WechatHelper;
 import com.gladfish.work.pubase.mapper.PublicBaseInfoEntityMapper;
 import com.gladfish.work.pubase.model.PublicBaseInfoEntity;
 import com.gladfish.frame.exception.BizException;
+import com.gladfish.work.pubase.service.IPublicBaseInfoService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class WechatServiceAspect {
     private static final Logger log = LoggerFactory.getLogger(WechatServiceAspect.class);
 
     @Autowired
-    private PublicBaseInfoEntityMapper publicBaseInfoMapper;
+    private IPublicBaseInfoService publicBaseInfoService;
 
     /**
      * Pointcut定义切点
@@ -44,14 +45,14 @@ public class WechatServiceAspect {
         log.info("WechatServiceImpl方法执行前...");
         ServletRequestAttributes sra =  (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 //        HttpServletRequest request = sra.getRequest();
-        Long projectId = (Long)joinPoint.getArgs()[0];
-        PublicBaseInfoEntity publicBaseInfoEntity = publicBaseInfoMapper.selectByPrimaryKey(projectId);
+//        Long projectId = (Long)joinPoint.getArgs()[0];
+        PublicBaseInfoEntity publicBaseInfoEntity = publicBaseInfoService.getGladFishPublicBaseInfoEntity();
         if(StringUtils.isEmpty(publicBaseInfoEntity.getAccessToken())|| publicBaseInfoEntity.getExpireTime().before(new Date())){
             log.info("access_token不可用");
             String accessToken = WechatHelper.getWechatToken(publicBaseInfoEntity.getAppid(),publicBaseInfoEntity.getSecret());
             publicBaseInfoEntity.setAccessToken(accessToken);
             publicBaseInfoEntity.setExpireTime(new Date(System.currentTimeMillis()+7200*1000));
-            publicBaseInfoMapper.updateByPrimaryKeySelective(publicBaseInfoEntity);
+            publicBaseInfoService.update(publicBaseInfoEntity);
         }
 //        log.info("url: " + request.getRequestURI());//url
 //        log.info("ip: " + request.getRemoteHost());//ip

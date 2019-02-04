@@ -1,5 +1,6 @@
 package com.gladfish.work.pubase.service;
 
+import com.gladfish.work.pubase.model.UserEntity;
 import com.gladfish.work.wechat.form.UserForm;
 
 /**
@@ -10,6 +11,14 @@ import com.gladfish.work.wechat.form.UserForm;
  */
 public interface IUserService {
 
-    Long addUser(UserForm userForm);
+    /**
+     * 添加用户
+     * @param openid
+     * @param name
+     * @param sex
+     * @param headimg
+     * @return
+     */
+    Long addUserByWechat(String openid,String name,Integer sex,String headimg);
 
 }

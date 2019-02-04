@@ -72,7 +72,7 @@ public class PortalController {
 					   @RequestParam("nonce") String nonce,
 					   @RequestParam("openid") String openid,
 					   @RequestParam(name = "encrypt_type", required = false) String encType,
-					   @RequestParam(name = "msg_signature", required = false) String msgSignature) throws IOException {
+					   @RequestParam(name = "msg_signature", required = false) String msgSignature) throws Exception {
 		log.info("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
 						+ " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
 				openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
@@ -81,7 +81,7 @@ public class PortalController {
 		if (encType == null) {
 			// 明文传输的消息
 			WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(requestBody);
-			WxMpXmlOutMessage outMessage = WxMpXmlOutMessage.TEXT().toUser(inMessage.getFromUser()).fromUser(inMessage.getToUser()).content("cdcdcddd").build();
+			WxMpXmlOutMessage outMessage = WxMpXmlOutMessage.TEXT().toUser(inMessage.getFromUser()).fromUser(inMessage.getToUser()).content("欢迎关注悦鱼科技").build();
 			if (outMessage == null) {
 				return "";
 			}
@@ -89,7 +89,7 @@ public class PortalController {
 			out = outMessage.toXml();
 
 			if(WxConsts.EventType.SUBSCRIBE.equals(inMessage.getEvent())){//关注
-
+				wechatService.subscribe(openid);
 			}
 		} else if ("aes".equalsIgnoreCase(encType)) {
 //			// aes加密的消息
@@ -116,7 +116,7 @@ public class PortalController {
 	 */
 	@RequestMapping(value = "/getcallbackip.json")
 	public List<String> getCallbackIp(@RequestParam Long publicId) throws BizException {
-		return wechatService.getCallbackIp(publicId);
+		return wechatService.getCallbackIp();
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class PortalController {
 	 */
 	@RequestMapping("/tologin/userinfo")
 	public void check(String code) throws BizException{
-		WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfo(2L,code);
+		WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfoByCode(code);
 		log.info(JSON.toJSONString(wechatUserInfoForm));
 	}
 

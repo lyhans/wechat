@@ -2,6 +2,8 @@ package com.gladfish.work.wechat.form;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.List;
+
 /**
  * <p>
  *
@@ -29,6 +31,20 @@ public class WechatUserInfoForm {
     private String unionid;
     /** 用户是否订阅该公众号标识(0为关注，1关注) */
     private Integer subscribe;
+    /** 用户的语言，简体中文为zh_CN */
+    private String language;
+    /** 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间 */
+    private Long subscribe_time;
+    /** 公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注 */
+    private String remark;
+    /** 用户所在的分组ID（兼容旧的用户分组接口 */
+    private Long groupid;
+    /** 用户被打上的标签ID列表 */
+    private List<Long> tagid_list;
+    /** 返回用户关注的渠道来源 */
+    private String subscribe_scene;
+    private Long qr_scene;
+    private String qr_scene_str;
     public String getOpenid() {
         return openid;
     }
@@ -107,6 +123,70 @@ public class WechatUserInfoForm {
 
     public void setSubscribe(Integer subscribe) {
         this.subscribe = subscribe;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Long getSubscribe_time() {
+        return subscribe_time;
+    }
+
+    public void setSubscribe_time(Long subscribe_time) {
+        this.subscribe_time = subscribe_time;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Long getGroupid() {
+        return groupid;
+    }
+
+    public void setGroupid(Long groupid) {
+        this.groupid = groupid;
+    }
+
+    public List<Long> getTagid_list() {
+        return tagid_list;
+    }
+
+    public void setTagid_list(List<Long> tagid_list) {
+        this.tagid_list = tagid_list;
+    }
+
+    public String getSubscribe_scene() {
+        return subscribe_scene;
+    }
+
+    public void setSubscribe_scene(String subscribe_scene) {
+        this.subscribe_scene = subscribe_scene;
+    }
+
+    public Long getQr_scene() {
+        return qr_scene;
+    }
+
+    public void setQr_scene(Long qr_scene) {
+        this.qr_scene = qr_scene;
+    }
+
+    public String getQr_scene_str() {
+        return qr_scene_str;
+    }
+
+    public void setQr_scene_str(String qr_scene_str) {
+        this.qr_scene_str = qr_scene_str;
     }
 
     @Override

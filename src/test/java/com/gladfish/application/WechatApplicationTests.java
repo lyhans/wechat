@@ -33,6 +33,6 @@ public class WechatApplicationTests {
 		buttonForm1.setType(EnumButtonType.VIEW);
 		buttonForm1.setUrl("http://123.206.9.129:9999/");
 		menuForm.setButton(Lists.newArrayList(buttonForm1));
-		wechatService.menuCreate(2L,menuForm);
+		wechatService.menuCreate(menuForm);
 	}
 }

@@ -11,7 +11,7 @@ public class UserEntity {
 
     private String name;
 
-    private Boolean sex;
+    private Integer sex;
 
     private String headimg;
 
@@ -19,7 +19,7 @@ public class UserEntity {
 
     private String email;
 
-    private Boolean source;
+    private Integer source;
 
     private Long inviterId;
 
@@ -79,12 +79,20 @@ public class UserEntity {
         this.name = name == null ? null : name.trim();
     }
 
-    public Boolean getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
     }
 
     public String getHeadimg() {
@@ -109,14 +117,6 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
-    }
-
-    public Boolean getSource() {
-        return source;
-    }
-
-    public void setSource(Boolean source) {
-        this.source = source;
     }
 
     public Long getInviterId() {

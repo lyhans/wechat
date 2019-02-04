@@ -31,4 +31,9 @@ public class PublicBaseInfoServiceImpl implements IPublicBaseInfoService {
             return publicBaseInfoEntityMapper.selectByPrimaryKey(2L);
         }
     }
+
+    @Override
+    public void update(PublicBaseInfoEntity publicBaseInfoEntity) {
+        publicBaseInfoEntityMapper.updateByPrimaryKeySelective(publicBaseInfoEntity);
+    }
 }

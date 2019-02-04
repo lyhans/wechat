@@ -19,8 +19,8 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("add.json")
-    public Long add(UserForm userForm){
-        return userService.addUser(userForm);
-    }
+//    @RequestMapping("add.json")
+//    public Long add(UserForm userForm){
+//        return userService.addUser(userForm);
+//    }
 }

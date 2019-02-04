@@ -11,10 +11,12 @@ public interface IWechatService {
 
 	/**
 	 * 根据appid更新accessToken
-	 * @param publicId
+	 * @param appid
+	 * @param secret
+	 * @return
 	 * @throws BizException
 	 */
-	void updateAccessToken(Long publicId)  throws BizException;
+	String updateAccessToken(String appid,String secret)  throws BizException;
 
 	/**
 	 * 获取微信服务器IP地址
@@ -22,12 +24,19 @@ public interface IWechatService {
 	 * @return
 	 * @throws BizException
 	 */
-	List<String> getCallbackIp(Long publicId)  throws BizException ;
+	List<String> getCallbackIp()  throws BizException ;
 
-	WechatUserInfoForm getUserInfo(Long publicId,String code)throws BizException ;
+	WechatUserInfoForm getUserInfoByCode(String code)throws BizException ;
 
-	WechatUserInfoForm getSnsUserInfo(Long publicId,String openid)throws BizException ;
+	WechatUserInfoForm getSnsUserInfoByCode(String code)throws BizException ;
 
-	void menuCreate(Long publicId, MenuForm menuForm)throws BizException ;
+	void menuCreate(MenuForm menuForm)throws BizException ;
+
+	/**
+	 * 订阅
+	 * @param openid
+	 * @return
+	 */
+	Long subscribe(String openid)  throws BizException ;
 
 }
