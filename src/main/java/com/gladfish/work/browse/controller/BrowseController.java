@@ -1,10 +1,14 @@
 package com.gladfish.work.browse.controller;
 
+import com.gladfish.common.config.ConfigProperties;
+import com.gladfish.common.enums.EnumErrorCode;
 import com.gladfish.frame.exception.BizException;
+import com.gladfish.work.browse.form.BrowseForm;
 import com.gladfish.work.browse.form.ViewHtmlForm;
 import com.gladfish.work.browse.form.ViewRecordForm;
 import com.gladfish.work.browse.service.IViewHtmlService;
 import com.gladfish.work.wechat.form.WechatUserInfoForm;
+import com.gladfish.work.wechat.form.WxJsapiSignatureForm;
 import com.gladfish.work.wechat.service.IWechatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,33 +33,54 @@ public class BrowseController {
     @Autowired
     private IWechatService wechatService;
 
+    @Autowired
+    private ConfigProperties configProperties;
+
     @RequestMapping("/viewhtml/{uuid}")
     public String testhtml(@PathVariable String uuid,@RequestParam String code,Model model) throws BizException {
-//        ViewHtmlForm viewHtmlForm = viewHtmlService.browseViewHtml(uuid,code);
-//        model.addAttribute("linkUrl",viewHtmlForm.getLinkUrl());
-        List<ViewRecordForm> viewRecordForms = viewHtmlService.getViewRecords(10L);
-        model.addAttribute("linkUrl","https://m.weibo.cn/1742566624/4335336757311166");
-        model.addAttribute("viewRecordForms",viewRecordForms);
-        model.addAttribute("isVip",false);
-        model.addAttribute("count",viewRecordForms.size());
+        ViewHtmlForm viewHtmlForm = viewHtmlService.browseViewHtml(uuid,code);
+        model.addAttribute("linkUrl",viewHtmlForm.getLinkUrl());
+        if(viewHtmlForm.getSelf()) {
+            List<ViewRecordForm> viewRecordForms = viewHtmlService.getViewRecords(viewHtmlForm.getId());
+//        model.addAttribute("linkUrl","https://m.weibo.cn/1742566624/4335336757311166");
+            BrowseForm browseForm = new BrowseForm();
+            browseForm.setFriends(viewRecordForms);
+            browseForm.setVip(false);
+            browseForm.setCount(viewRecordForms.size());
+            model.addAttribute("browseForm", browseForm);
+        }
+        String url = "http://"+configProperties.getDomain()+"/browse/viewhtml/"+uuid+"?code="+code+"&state=";
+        WxJsapiSignatureForm wxJsapiSignatureForm = wechatService.createJsapiSignature(url);
+        model.addAttribute("appId", wxJsapiSignatureForm.getAppId());
+        model.addAttribute("nonceStr", wxJsapiSignatureForm.getNonceStr());
+        model.addAttribute("timestamp", wxJsapiSignatureForm.getTimestamp());
+        model.addAttribute("signature", wxJsapiSignatureForm.getSignature());
+//        model.addAttribute("viewRecordForms",viewRecordForms);
+//        model.addAttribute("isVip",false);
+//        model.addAttribute("count",viewRecordForms.size());
         return "view_html";
     }
 
     @RequestMapping("/createhtml")
-    public String createhtml(String linkUrl){
-        String url = viewHtmlService.createViewHtml(1L,"test1",linkUrl,false);
+    public String createhtml(@RequestParam Long userId,@RequestParam String linkUrl){
+        String url = viewHtmlService.createViewHtml(userId,linkUrl,false);
         return "redirect:"+url;
     }
 
     @RequestMapping("/showcreateview")
-    public String showCreateView(@RequestParam String code) throws BizException {
+    public String showCreateView(@RequestParam String code,Model model) throws BizException {
         log.info("showCreateView="+code);
-//        WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfo(2L,code);
-//        log.info("userInfo="+wechatUserInfoForm);
-//        Integer subscribe = wechatUserInfoForm.getSubscribe();
-//        if(subscribe.equals(0)){
-//            return "test";
-//        }
+        try {
+            Long userId = wechatService.getUserIdByCode(code);
+            log.info("userId=" + userId);
+            model.addAttribute("userId", userId);
+        }catch (BizException e){
+            if(EnumErrorCode.UNSUBSCRIBE.getCode().equals(e.getCode())){
+                return "test";
+            }else{
+                throw e;
+            }
+        }
         return "create_view";
     }
 

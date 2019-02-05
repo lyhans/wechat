@@ -8,6 +8,8 @@ import com.gladfish.work.pubase.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *
@@ -29,5 +31,15 @@ public class UserServiceImpl implements IUserService {
         userEntity.setHeadimg(headimg);
         userEntity.setSource(EnumUserSource.WECHAT.getCode());
         return userMapper.insertSelective(userEntity);
+    }
+
+    @Override
+    public List<UserEntity> getByRelatedId(String relatedId) {
+        return userMapper.selectByRelatedId(relatedId);
+    }
+
+    @Override
+    public UserEntity getById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 }

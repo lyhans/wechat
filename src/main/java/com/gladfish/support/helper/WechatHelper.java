@@ -9,6 +9,11 @@ import com.gladfish.work.wechat.enums.EnumWechatCode;
 import com.gladfish.work.wechat.form.MenuForm;
 import com.gladfish.work.wechat.form.WechatOauth2TokenForm;
 import com.gladfish.work.wechat.form.WechatUserInfoForm;
+import com.gladfish.work.wechat.form.WxJsapiSignatureForm;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
+import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.common.util.RandomUtils;
+import me.chanjar.weixin.common.util.crypto.SHA1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -123,6 +128,32 @@ public class WechatHelper {
         String result = HttpUtil.post(url,JSON.toJSONString(menuForm));
         log.info("menuCreate-----result:"+result);
         analysisResult(result);
+    }
+
+    public static String getTicket(String accessToken) throws BizException {
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("access_token",accessToken);
+        params.put("type","jsapi");
+        String result =  HttpUtil.get(WechatUrl.JSAPI_TICKET_URL,params);
+        log.info("getTicket-----result:"+result);
+        analysisResult(result);
+        return JSON.parseObject(result).getString("ticket");
+    }
+
+    public static WxJsapiSignatureForm createJsapiSignature(String appid,String jsapiTicket,String url) throws BizException {
+        long timestamp = System.currentTimeMillis() / 1000;
+        String randomStr = RandomUtils.getRandomStr();
+        log.info("jsapi_ticket=" + jsapiTicket+
+                ",noncestr=" + randomStr+ ",timestamp=" + timestamp+ ",url=" + url);
+        String signature = SHA1.genWithAmple("jsapi_ticket=" + jsapiTicket,
+                "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
+        WxJsapiSignatureForm jsapiSignature = new WxJsapiSignatureForm();
+        jsapiSignature.setAppId(appid);
+        jsapiSignature.setTimestamp(timestamp);
+        jsapiSignature.setNonceStr(randomStr);
+        jsapiSignature.setUrl(url);
+        jsapiSignature.setSignature(signature);
+        return jsapiSignature;
     }
 
     /**

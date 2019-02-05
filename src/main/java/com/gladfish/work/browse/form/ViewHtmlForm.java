@@ -29,6 +29,8 @@ public class ViewHtmlForm {
 
     private Boolean isDel;
 
+    private Boolean self;
+
     public Long getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class ViewHtmlForm {
 
     public void setIsDel(Boolean isDel) {
         this.isDel = isDel;
+    }
+
+    public Boolean getSelf() {
+        return self;
+    }
+
+    public void setSelf(Boolean self) {
+        this.self = self;
     }
 }

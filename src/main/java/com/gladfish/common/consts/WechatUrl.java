@@ -33,4 +33,7 @@ public class WechatUrl {
 	public final static String MENU_CREATE_URL="https://api.weixin.qq.com/cgi-bin/menu/create?";
 //	public final static String _URL="";
 //	public final static String _URL="";
+
+	/** 微信JS接口的临时票据 */
+	public final static String JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
 }

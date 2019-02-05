@@ -231,4 +231,6 @@
       qr_scene_str = #{qrSceneStr,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+
 </mapper>

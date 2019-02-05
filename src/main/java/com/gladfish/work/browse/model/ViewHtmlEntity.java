@@ -132,4 +132,5 @@ public class ViewHtmlEntity {
     public void setIsDel(Boolean del) {
         isDel = del;
     }
+
 }

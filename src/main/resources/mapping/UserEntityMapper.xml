@@ -291,4 +291,13 @@
       is_del = #{isDel,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByRelatedId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where related_id = #{relatedId,jdbcType=VARCHAR}
+    order by id desc
+  </select>
+
 </mapper>

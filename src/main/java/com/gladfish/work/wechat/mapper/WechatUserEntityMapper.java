@@ -2,6 +2,8 @@ package com.gladfish.work.wechat.mapper;
 
 import com.gladfish.work.wechat.model.WechatUserEntity;
 
+import java.util.List;
+
 public interface WechatUserEntityMapper {
     int deleteByPrimaryKey(String id);
 

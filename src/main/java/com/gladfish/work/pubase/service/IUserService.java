@@ -3,6 +3,8 @@ package com.gladfish.work.pubase.service;
 import com.gladfish.work.pubase.model.UserEntity;
 import com.gladfish.work.wechat.form.UserForm;
 
+import java.util.List;
+
 /**
  * <p>
  *
@@ -20,5 +22,9 @@ public interface IUserService {
      * @return
      */
     Long addUserByWechat(String openid,String name,Integer sex,String headimg);
+
+    List<UserEntity> getByRelatedId(String relatedId);
+
+    UserEntity getById(Long id);
 
 }

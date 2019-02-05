@@ -1,6 +1,7 @@
 package com.gladfish.work.wechat.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.gladfish.common.config.ConfigProperties;
 import com.gladfish.common.utils.EncryptionUtil;
 import com.gladfish.frame.exception.BizException;
 import com.gladfish.work.wechat.form.WechatUserInfoForm;
@@ -24,15 +25,8 @@ public class PortalController {
 
 	private static final Logger log = LoggerFactory.getLogger(PortalController.class);
 
-	@Value("${appid}")
-	private String appid;
-
-	@Value("${secret}")
-	private String secret;
-
-	@Value("${token}")
-	private String token;
-
+	@Autowired
+	private ConfigProperties configProperties;
 
 	@Autowired
 	private IWechatService wechatService;
@@ -48,7 +42,7 @@ public class PortalController {
 	@GetMapping
 	public String checkSignature(@RequestParam String signature,@RequestParam String timestamp,@RequestParam String nonce,@RequestParam String echostr){
 		log.info("checkSignature:signature="+signature+",timestamp="+timestamp+",nonce="+nonce+",echostr="+echostr);
-		String[] arr = new String[]{token,timestamp,nonce};
+		String[] arr = new String[]{configProperties.getToken(),timestamp,nonce};
 		//字典排序
 		Arrays.sort(arr);
 		//生成字符串
@@ -91,6 +85,9 @@ public class PortalController {
 			if(WxConsts.EventType.SUBSCRIBE.equals(inMessage.getEvent())){//关注
 				wechatService.subscribe(openid);
 			}
+			if(WxConsts.EventType.UNSUBSCRIBE.equals(inMessage.getEvent())){//取消关注
+				wechatService.unsubscribe(openid);
+			}
 		} else if ("aes".equalsIgnoreCase(encType)) {
 //			// aes加密的消息
 //			WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxService.getWxMpConfigStorage(),
@@ -124,10 +121,10 @@ public class PortalController {
 	 * @param code
 	 * @throws BizException
 	 */
-	@RequestMapping("/tologin/userinfo")
-	public void check(String code) throws BizException{
-		WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfoByCode(code);
-		log.info(JSON.toJSONString(wechatUserInfoForm));
-	}
+//	@RequestMapping("/tologin/userinfo")
+//	public void check(String code) throws BizException{
+//		WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfoByCode(code);
+//		log.info(JSON.toJSONString(wechatUserInfoForm));
+//	}
 
 }

@@ -17,12 +17,11 @@ public interface IViewHtmlService {
     /**
      * 创建浏览页面
      * @param userId
-     * @param wechatUserId
      * @param linkUrl
      * @param createType
      * @return
      */
-    String createViewHtml(Long userId,String wechatUserId,String linkUrl,Boolean createType);
+    String createViewHtml(Long userId,String linkUrl,Boolean createType);
 
     /**
      * 浏览指定页面

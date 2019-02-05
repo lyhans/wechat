@@ -2,7 +2,11 @@ package com.gladfish.common.utils;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpUtil;
+import com.gladfish.common.config.ConfigProperties;
 import com.gladfish.frame.exception.BizException;
+import com.thoughtworks.xstream.XStream;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,14 +19,17 @@ import java.util.Map;
  */
 public class LinkUtil {
 
+    @Autowired
+    private ConfigProperties configProperties;
+
     public static String createUrl(String urlTemplate,Map<String,Object> _params){
-        if(MapUtil.isEmpty(_params)){
-            return urlTemplate;
+        if(_params == null){
+            _params = new HashMap<>();
         }
-        String url = "";
+        String url = urlTemplate;
         for(String key:_params.keySet()){
             if(key != null&&_params.get(key) != null){
-                url = urlTemplate.replaceAll("\\{"+key+"\\}",_params.get(key).toString());
+                url = url.replaceAll("\\{"+key+"\\}",_params.get(key).toString());
             }
         }
         return url;

@@ -9,8 +9,11 @@ import com.gladfish.work.wechat.service.IWechatService;
 import com.gladfish.work.wechat.service.IWechatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -46,5 +49,18 @@ public class WechatUserServiceImpl implements IWechatUserService {
         wechatUserEntity.setQrSceneStr(wechatUserInfoForm.getQr_scene_str());
         wechatUserEntityMapper.insertSelective(wechatUserEntity);
         return wechatUserInfoForm.getOpenid();
+    }
+
+    @Override
+    public WechatUserEntity getByOpenid(String openid) {
+        if(StringUtils.isEmpty(openid)){
+            return null;
+        }
+        return wechatUserEntityMapper.selectByPrimaryKey(openid);
+    }
+
+    @Override
+    public void update(WechatUserEntity wechatUserEntity) {
+        wechatUserEntityMapper.updateByPrimaryKeySelective(wechatUserEntity);
     }
 }
