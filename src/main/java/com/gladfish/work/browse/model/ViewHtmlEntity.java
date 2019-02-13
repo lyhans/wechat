@@ -15,6 +15,10 @@ public class ViewHtmlEntity {
 
     private String uuid;
 
+    private String title;
+
+    private String imgUrl;
+
     private Integer showLimit;
 
     private Boolean createType;
@@ -133,4 +137,19 @@ public class ViewHtmlEntity {
         isDel = del;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }

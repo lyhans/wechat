@@ -2,12 +2,18 @@ package com.gladfish.work.wechat.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.gladfish.common.config.ConfigProperties;
+import com.gladfish.common.consts.ViewUrl;
 import com.gladfish.common.utils.EncryptionUtil;
+import com.gladfish.common.utils.LinkUtil;
 import com.gladfish.frame.exception.BizException;
+import com.gladfish.work.wechat.enums.EnumButtonType;
+import com.gladfish.work.wechat.form.ButtonForm;
+import com.gladfish.work.wechat.form.MenuForm;
 import com.gladfish.work.wechat.form.WechatUserInfoForm;
 import com.gladfish.work.wechat.message.WxMpXmlMessage;
 import com.gladfish.work.wechat.message.WxMpXmlOutMessage;
 import com.gladfish.work.wechat.service.IWechatService;
+import com.google.common.collect.Lists;
 import me.chanjar.weixin.common.api.WxConsts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/wechat/portal")
@@ -116,15 +124,27 @@ public class PortalController {
 		return wechatService.getCallbackIp();
 	}
 
-	/**
-	 *
-	 * @param code
-	 * @throws BizException
-	 */
-//	@RequestMapping("/tologin/userinfo")
-//	public void check(String code) throws BizException{
-//		WechatUserInfoForm wechatUserInfoForm = wechatService.getUserInfoByCode(code);
-//		log.info(JSON.toJSONString(wechatUserInfoForm));
-//	}
+	@RequestMapping(value = "/menucreate.json")
+	public void menuCreate() throws BizException {
+		MenuForm menuForm = new MenuForm();
+		ButtonForm buttonForm1 = new ButtonForm();
+		buttonForm1.setName("悦鱼官网");
+		buttonForm1.setType(EnumButtonType.VIEW);
+		buttonForm1.setUrl("http://www.gladfish.cn/");
+
+		ButtonForm buttonForm2 = new ButtonForm();
+		buttonForm2.setName("测试功能");
+		buttonForm2.setType(EnumButtonType.VIEW);
+		Map<String,Object> _params = new HashMap<>();
+		_params.put("uri", LinkUtil.createUrl(ViewUrl.CREATE_HTML_URL,_params));
+		String url = LinkUtil.createUrl(ViewUrl.USER_INFO_URL,_params);
+		buttonForm2.setUrl(url);
+//		buttonForm2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx540a3fb596ce9dc5&redirect_uri=http://2349390gv5.imwork.net/browse/showcreateview&response_type=code&scope=snsapi_base");
+
+		menuForm.setButton(Lists.newArrayList(buttonForm1,buttonForm2));
+		log.info(JSON.toJSONString(buttonForm2));
+		wechatService.menuCreate(menuForm);
+//		System.out.println("----------------"+url);
+	}
 
 }

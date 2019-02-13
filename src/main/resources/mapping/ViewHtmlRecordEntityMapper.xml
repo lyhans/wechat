@@ -151,7 +151,9 @@
     <include refid="Base_Column_List" />
     from view_html_record
     where view_html_id = #{viewHtmlId,jdbcType=BIGINT} and is_del = 0
+    GROUP BY openid
     order by id DESC
+
   </select>
 
 </mapper>

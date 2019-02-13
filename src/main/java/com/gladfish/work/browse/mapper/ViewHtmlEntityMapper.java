@@ -2,6 +2,8 @@ package com.gladfish.work.browse.mapper;
 
 import com.gladfish.work.browse.model.ViewHtmlEntity;
 
+import java.util.List;
+
 public interface ViewHtmlEntityMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -16,4 +18,6 @@ public interface ViewHtmlEntityMapper {
     int updateByPrimaryKey(ViewHtmlEntity record);
 
     ViewHtmlEntity selectByUuid(String uuid);
+
+    List<ViewHtmlEntity> selectByUserId(Long userId);
 }

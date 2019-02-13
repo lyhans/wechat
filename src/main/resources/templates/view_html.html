@@ -188,8 +188,9 @@
 
             //转发到朋友圈
             wx.onMenuShareTimeline({
-                title: 'JSSDK朋友圈转发测试',
-                imgUrl: "http://upload.m4.cn/2011/0117/1295231531212.jpg",
+                title: [[${title}]],
+                link: [[${shareUrl}]],
+                imgUrl: [[${imgUrl}]],
                 success: function () {
                     alert('转发成功！');
                 },
@@ -199,10 +200,10 @@
             });
             //转发给朋友
             wx.onMenuShareAppMessage({
-                title: 'JSSDK朋友圈转发测试',
-                desc: '转发给朋友',
-//                link: link,
-                imgUrl: "http://upload.m4.cn/2011/0117/1295231531212.jpg",
+                title: [[${title}]],
+                desc: '来自的分享',
+                link: [[${shareUrl}]],
+                imgUrl:  [[${imgUrl}]],
                 type: 'link',
                 dataUrl: '',
                 success: function () {

@@ -2,11 +2,13 @@ package com.gladfish.common.utils;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.setting.dialect.Props;
 import com.gladfish.common.config.ConfigProperties;
 import com.gladfish.frame.exception.BizException;
 import com.thoughtworks.xstream.XStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,13 +21,23 @@ import java.util.Map;
  */
 public class LinkUtil {
 
-    @Autowired
-    private ConfigProperties configProperties;
+    private static Map<String,Object> params = new HashMap<>();
+
+    static{
+        String env = new Props("application.properties").getProperty("spring.profiles.active");
+        Props props = new Props("application-"+env+".properties");
+        params.put("token",props.getProperty("gladfish.token"));
+        params.put("appid",props.getProperty("gladfish.appid"));
+        params.put("secret",props.getProperty("gladfish.secret"));
+        params.put("domain",props.getProperty("gladfish.domain"));
+        params.put("isonline",props.getProperty("gladfish.isonline"));
+    }
 
     public static String createUrl(String urlTemplate,Map<String,Object> _params){
         if(_params == null){
             _params = new HashMap<>();
         }
+        _params.putAll(params);
         String url = urlTemplate;
         for(String key:_params.keySet()){
             if(key != null&&_params.get(key) != null){

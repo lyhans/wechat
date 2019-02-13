@@ -8,6 +8,8 @@
     <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
     <result column="show_limit" property="showLimit" jdbcType="INTEGER" />
     <result column="create_type" property="createType" jdbcType="BIT" />
     <result column="resource_usage" property="resourceUsage" jdbcType="INTEGER" />
@@ -17,7 +19,7 @@
     <result column="is_del" property="isDel" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, wechat_user_id, link_url, url, uuid, show_limit, create_type, resource_usage,
+    id, user_id, wechat_user_id, link_url, url, uuid, title, img_url,show_limit, create_type, resource_usage,
     view_count, creat_time, update_time, is_del
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -32,12 +34,12 @@
   </delete>
   <insert id="insert" parameterType="com.gladfish.work.browse.model.ViewHtmlEntity" >
     insert into view_html (id, user_id, wechat_user_id, 
-      link_url, url, uuid, 
+      link_url, url, uuid, title, img_url,
       show_limit, create_type, resource_usage,
       view_count, creat_time, update_time, 
       is_del)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{wechatUserId,jdbcType=VARCHAR}, 
-      #{linkUrl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, 
+      #{linkUrl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR},
       #{showLimit,jdbcType=INTEGER}, #{createType,jdbcType=BIT}, #{resourceUsage,jdbcType=INTEGER},
       #{viewCount,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{isDel,jdbcType=BIT})
@@ -62,6 +64,12 @@
       </if>
       <if test="uuid != null" >
         uuid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
       </if>
       <if test="showLimit != null" >
         show_limit,
@@ -104,6 +112,12 @@
       <if test="uuid != null" >
         #{uuid,jdbcType=VARCHAR},
       </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
       <if test="showLimit != null" >
         #{show_limit,jdbcType=INTEGER},
       </if>
@@ -145,6 +159,12 @@
       <if test="uuid != null" >
         uuid = #{uuid,jdbcType=VARCHAR},
       </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
       <if test="show_limit != null" >
         show_limit = #{showLimit,jdbcType=INTEGER},
       </if>
@@ -176,6 +196,8 @@
       link_url = #{linkUrl,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       uuid = #{uuid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
       show_limit = #{showLimit,jdbcType=INTEGER},
       create_type = #{createType,jdbcType=BIT},
       resource_usage = #{resourceUsage,jdbcType=INTEGER},
@@ -192,6 +214,13 @@
     <include refid="Base_Column_List" />
     from view_html
     where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from view_html
+    where user_id = #{userId,jdbcType=BIGINT}
   </select>
 
 </mapper>

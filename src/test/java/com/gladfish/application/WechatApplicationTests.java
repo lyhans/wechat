@@ -22,11 +22,6 @@ import java.util.Map;
 @SpringBootTest
 public class WechatApplicationTests {
 
-	@Autowired
-	private ConfigProperties configProperties;
-
-	@Autowired
-	private IWechatService wechatService;
 
 	@Test
 	public void contextLoads() {
@@ -46,10 +41,9 @@ public class WechatApplicationTests {
 		buttonForm2.setName("测试功能");
 		buttonForm2.setType(EnumButtonType.VIEW);
 		Map<String,Object> _params = new HashMap<>();
-		_params.put("domain",configProperties.getDomain());
-		_params.put("appid",configProperties.getAppid());
 		_params.put("uri",LinkUtil.createUrl(ViewUrl.CREATE_HTML_URL,_params));
 		String url = LinkUtil.createUrl(ViewUrl.USER_INFO_URL,_params);
+		buttonForm2.setUrl(url);
 		buttonForm2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx540a3fb596ce9dc5&redirect_uri=http://2349390gv5.imwork.net/browse/showcreateview&response_type=code&scope=snsapi_base");
 
 		menuForm.setButton(Lists.newArrayList(buttonForm1,buttonForm2));

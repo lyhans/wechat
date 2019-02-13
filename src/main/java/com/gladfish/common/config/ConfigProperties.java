@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Configuration
 @ConfigurationProperties(prefix = "gladfish", ignoreUnknownFields = false)
-//@PropertySource("classpath:config/config.properties")
+//@PropertySource("classpath:application-online.properties")
 @Component
 public class ConfigProperties {
 

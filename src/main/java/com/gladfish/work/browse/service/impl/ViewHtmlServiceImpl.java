@@ -1,9 +1,12 @@
 package com.gladfish.work.browse.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.gladfish.common.config.ConfigProperties;
 import com.gladfish.common.consts.ViewUrl;
+import com.gladfish.common.utils.HtmlUtil;
 import com.gladfish.common.utils.LinkUtil;
 import com.gladfish.frame.exception.BizException;
 import com.gladfish.support.helper.WechatHelper;
@@ -27,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -40,9 +45,6 @@ import java.util.*;
 public class ViewHtmlServiceImpl implements IViewHtmlService {
 
     private final static Logger log = LoggerFactory.getLogger(ViewHtmlServiceImpl.class);
-
-    @Autowired
-    private ConfigProperties configProperties;
 
     @Autowired
     private IPublicBaseInfoService publicBaseInfoService;
@@ -59,19 +61,35 @@ public class ViewHtmlServiceImpl implements IViewHtmlService {
     @Override
     public String createViewHtml(Long userId, String linkUrl, Boolean createType) {
         UserEntity userEntity = userService.getById(userId);
+
+        String htmlStr= HtmlUtil.getHtml(linkUrl);
+//        String htmlStr= HttpUtil.get("https://m.weibo.cn/1742566624/4335336757311166");
+        String title = "来自"+userEntity.getName()+"的分享";
+        String htmlTitle = HtmlUtil.getTitle(htmlStr);
+        if(!StringUtils.isEmpty(htmlTitle)){
+            title = htmlTitle;
+        }
+        String imgUrl = "http://upload.m4.cn/2011/0117/1295231531212.jpg";
+        String htmlImg = HtmlUtil.getFirstImg(htmlStr);
+        if(!StringUtils.isEmpty(htmlImg)) {
+            if(htmlImg.startsWith("//")){
+                htmlImg = "http:"+htmlImg;
+            }
+            imgUrl = htmlImg;
+        }
+
         ViewHtmlEntity viewHtmlEntity = new ViewHtmlEntity();
         viewHtmlEntity.setUserId(userId);
         viewHtmlEntity.setWechatUserId(userEntity.getRelatedId());
+        viewHtmlEntity.setTitle(title);
+        viewHtmlEntity.setImgUrl(imgUrl);
         viewHtmlEntity.setLinkUrl(linkUrl);
         viewHtmlEntity.setCreateType(createType);
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         viewHtmlEntity.setUuid(uuid);
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("uuid",uuid);
-        params.put("appid",configProperties.getAppid());
-        params.put("domain",configProperties.getDomain());
-        params.put("uri",LinkUtil.createUrl(ViewUrl.VIEW_HTML_URL,params));
-        String url = LinkUtil.createUrl(ViewUrl.USER_INFO_URL,params);
+        String url = LinkUtil.createUrl(ViewUrl.VIEW_HTML_URL,params);
         viewHtmlEntity.setUrl(url);
         viewHtmlEntityMapper.insertSelective(viewHtmlEntity);
         return url;
@@ -113,6 +131,8 @@ public class ViewHtmlServiceImpl implements IViewHtmlService {
         viewHtmlForm.setLinkUrl(viewHtmlEntity.getLinkUrl());
         viewHtmlForm.setUrl(viewHtmlEntity.getUrl());
         viewHtmlForm.setUuid(viewHtmlEntity.getUuid());
+        viewHtmlForm.setTitle(viewHtmlEntity.getTitle());
+        viewHtmlForm.setImgUrl(viewHtmlEntity.getImgUrl());
         viewHtmlForm.setShowLimit(viewHtmlEntity.getShowLimit());
         viewHtmlForm.setCreateType(viewHtmlEntity.getCreateType());
         viewHtmlForm.setResourceUsage(viewHtmlEntity.getResourceUsage());
@@ -145,4 +165,18 @@ public class ViewHtmlServiceImpl implements IViewHtmlService {
         viewRecordForm.setNickname(viewHtmlRecordEntity.getNickname());
         return viewRecordForm;
     }
+
+    @Override
+    public List<ViewHtmlForm> queryViewHtmlsByUserId(Long userId) throws BizException {
+        List<ViewHtmlForm> viewHtmlForms = new ArrayList<>();
+        List<ViewHtmlEntity> viewHtmlEntities = viewHtmlEntityMapper.selectByUserId(userId);
+        if(CollectionUtil.isEmpty(viewHtmlEntities)){
+            return viewHtmlForms;
+        }
+        for(ViewHtmlEntity viewHtmlEntity:viewHtmlEntities){
+            viewHtmlForms.add(convertViewHtmlEntity2ViewHtmlForm(viewHtmlEntity));
+        }
+        return viewHtmlForms;
+    }
+
 }

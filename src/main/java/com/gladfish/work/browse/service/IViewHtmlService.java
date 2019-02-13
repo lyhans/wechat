@@ -38,4 +38,12 @@ public interface IViewHtmlService {
      * @throws BizException
      */
     List<ViewRecordForm> getViewRecords(Long viewHtmlId) throws BizException;
+
+    /**
+     *
+     * @param userId
+     * @return
+     * @throws BizException
+     */
+    List<ViewHtmlForm> queryViewHtmlsByUserId(Long userId) throws BizException;
 }
